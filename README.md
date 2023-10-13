@@ -14,3 +14,5 @@ Proyecto para clases de patrones de diseñoo de apis
         Un Componente llama a otro, este componente sabe a quien esta llamando y lo llama, pero no espera a que termine esa ejecución  si no que simplemente sigue con su trabajo y en algun momento evaluara cual fue el resultado de esa ejecución.
         Esto es tipico en aplicaciones desconectadas como React, App Movil.
         Esto se puede utilizar atravez de promesas o diferetes estructuras que no spermites realizar un llamado asincronico.
+
+# Ejecutar con Life Server
