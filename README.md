@@ -16,3 +16,8 @@ Proyecto para clases de patrones de diseñoo de apis
         Esto se puede utilizar atravez de promesas o diferetes estructuras que no spermites realizar un llamado asincronico.
 
 # Ejecutar con Life Server
+
+
+npm install express
+npm install body-parser
+node server.js
