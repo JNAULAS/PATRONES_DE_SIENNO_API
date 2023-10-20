@@ -62,3 +62,15 @@ Pero si su aplicacion no requiere datos en tiempo real, usar WebSocket puede sup
 Se trata de una devolución de llamadas HTTP basada en eventos y operaciones asincronas.
 Por ejemplo, GitHub utiliza webhooks para modificar a sus otros sistemas cada ves que se envia una nueva confirmacion.
 pero recuerde si necesita un acomunicacion asincrona o respuesta inmediata, es posible que el webhoot no sea su mejor opcion.
+
+
+### COMANDOS REACT - FRONT END
+npx create-react-app .
+React Redux Simple Snippets
+
+
+### COMANDOS NODEJS - BACK - END
+npm init
+
+### graphql
+npm i express-graphql
