@@ -74,3 +74,8 @@ npm init
 
 ### graphql
 npm i express-graphql
+
+http://localhost:4001/graphql
+
+## Consumo
+http://localhost:4001/graphql
