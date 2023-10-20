@@ -79,3 +79,10 @@ http://localhost:4001/graphql
 
 ## Consumo
 http://localhost:4001/graphql
+
+mutation{
+addCliente(nombre: "Juan Naula", telefono:"098765433"){
+id,
+nombre,
+telefono}
+}
