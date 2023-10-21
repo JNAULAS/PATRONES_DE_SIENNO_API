@@ -11,6 +11,7 @@ npm install express
 npm install body-parser
 npm install mongoose
 npm install -G nodemon
+npm i nodemon
 
 node server.js
 nodemon server.js
