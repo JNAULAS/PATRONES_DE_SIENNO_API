@@ -58,6 +58,7 @@ const AddMovie = () => {
         throw new Error('Error creating movie');
       } else {
         return response.json();
+        alert('Registro agregado con exito')
       }
     })
       .then((data) => {
