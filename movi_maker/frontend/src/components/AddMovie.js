@@ -1,17 +1,35 @@
-import React from 'react';
-import { useMutation, useQuery } from "react-query";
+import React, { useState } from 'react';
+import { useMutation } from "react-query";
 import { HashLink as Link } from 'react-router-hash-link';
 
 const AddMovie = () => {
-  // Hooks state
+
   const urlApi = 'http://localhost:4003/graphql'
+  // Hooks state
+  const [nombre, setNombre] = useState('')
+  const [genero, setGenero] = useState('')
+  const [anno, setAnno] = useState('')
+
+  const onChangeTextField = (field, value) => {
+    if (field === undefined || value === undefined) return
+    switch (field) {
+      case 'name':
+        setNombre(value)
+        break
+      case 'genero':
+        setGenero(value)
+        break
+      case 'year':
+        setAnno(value)
+        break
+      default:
+        break
+    }
+  }
 
   // Function
-  const mutation = useMutation((newMovieData) => {
-    // Obtiene data de entrada
-    const movieName = document.getElementById('idNombre').value;
-    const movieGenero = parseFloat(document.getElementById('idGenero').value);
-    const movieYear = parseFloat(document.getElementById('idYear').value);
+  const mutation = useMutation(() => {
+    console.log('Ingresa a mutation')
     return fetch(urlApi, {
       method: 'POST',
       headers: {
@@ -19,56 +37,33 @@ const AddMovie = () => {
       },
       body: JSON.stringify({
         query: `
-          mutation {
-            addMovies(name: "${movieName}", genero: ${movieGenero}, year: ${movieYear}) {
-              id
-              name
+        mutation AddMovie($name: String!, $genero: String!, $year: String!){
+          addMovie(name: $name, genero: $genero, year: $year){
+              name,
               genero,
               year
-            }
+              }
           }
         `,
+        variables: {
+          name: nombre,
+          genero: genero,
+          year: anno,
+        },
       }),
-    }) .then((response) => {
+    }).then((response) => {
       if (response.status >= 400) {
+        console.log('Datos de response save')
+        console.log(response)
         throw new Error('Error creating movie');
       } else {
         return response.json();
       }
     })
-    .then((data) => data.data.createMovie);
-
-  })
-
-  // Ejecuta funcion para consultar
-  const { data, isLoading, error } = useQuery("launches", () => {
-    return fetch(urlApi, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `
-                  {
-                    listMovies {
-                      id
-                      name
-                      genero
-                      year
-                    }
-                  }
-                `,
-      })
-    }).then((response) => {
-      if (response.status >= 400) {
-        throw new Error("Error fetching data");
-      } else {
+      .then((data) => {
         console.log('Data de retorno')
-        console.log(response.json())
-        return response.json();
-      }
-    })
-      .then((data) => data.data);
+        console.log(data.data.listMovies)
+      });
 
   })
 
@@ -77,10 +72,10 @@ const AddMovie = () => {
     // Se agrega id para poder se enlazado desde el boton de otro componente
     <div className='addMovie' id='addmovie'>
       <form>
-        <input type='text' id='idNombre' placeholder='Movie name' required ></input>
-        <input type='text' id='idGenero' placeholder='Movie Genero' required ></input>
-        <input type='text' id='idYear' placeholder='Movie Year' ></input>
-        <button>Add Movie</button>
+        <input type='text' id='idNombre' placeholder='Movie name' required onChange={(event, text) => onChangeTextField('name', event.target.value)}></input>
+        <input type='text' id='idGenero' placeholder='Movie Genero' required onChange={(event, text) => onChangeTextField('genero', event.target.value)}></input>
+        <input type='text' id='idYear' placeholder='Movie Year' onChange={(event, text) => onChangeTextField('year', event.target.value)}></input>
+        <button onClick={() => mutation.mutate()}>Add Movie</button>
       </form>
       <div className='top'>
         <Link smooth to='#header' className='top-button'>Back to top</Link>
