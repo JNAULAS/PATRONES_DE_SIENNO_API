@@ -14,7 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 db()
-resolve.listMovies()
+//resolve.addMovie()
+//resolve.listMovies()
+
 
 
 app.use(
