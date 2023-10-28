@@ -8,18 +8,27 @@ async function main() {
         keepCase: true,
         longs: String,
         enums: String,
-        arrays: true
+        arrays: true,
+        defaults: true,
+        oneofs: true
     })
 
     const userProto = grpc.loadPackageDefinition(packageDefinition)
     const server = new grpc.Server()
 
-    const users = []
+    const users = [
+        {
+            name:"Juan Naula",
+            email:"jnaulas@est.ups.edu.ec",
+            age:"1985"
+        }
+    ]
 
     server.addService(userProto.UserService.service, {
         getUsers: (_, callback) => {
+            console.log('Obtiene listado de usuarios')
             console.log(users)
-            callback(null, {users});
+            callback(null, { users: users });
         },
         addUser: (call, callback) => {
             const user = call.request;
